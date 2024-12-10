@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>알라딘 책 검색</title>
+    <script src="script.js" defer></script>
+</head>
+<body>
+    <h1>알라딘 책 검색</h1>
+    <input type="text" id="bookTitle" placeholder="책 제목을 입력하세요">
+    <button onclick="searchBooks()">검색</button>
+    <div id="results"></div>
+</body>
+<script>
+    async function searchBooks() {
+        const title = document.getElementById('bookTitle').value;
+        const apiKey = 'ttbsimpleego1150001'; // 여기에 발급받은 TTBKey를 입력하세요
+        const url = `http://www.aladin.co.kr/ttb/api/ItemSearch.aspx?ttbkey=${apiKey}&Query=${title}&QueryType=Title&MaxResults=10&start=1&SearchTarget=Book&output=js&Version=20131101`;
+    
+        try {
+            const response = await fetch(url);
+            const data = await response.json();
+            displayResults(data);
+        } catch (error) {
+            console.error('Error fetching data:', error);
+        }
+    }
+    
+    function displayResults(data) {
+        const resultsDiv = document.getElementById('results');
+        resultsDiv.innerHTML = '';
+    
+        if (data.item.length === 0) {
+            resultsDiv.innerHTML = '<p>검색 결과가 없습니다.</p>';
+            return;
+        }
+    
+        data.item.forEach(book => {
+            const bookDiv = document.createElement('div');
+            bookDiv.innerHTML = `
+                <h3>${book.title}</h3>
+                <p>저자: ${book.author}</p>
+                <p>출판사: ${book.publisher}</p>
+                <p>출판일: ${book.pubDate}</p>
+                <a href="${book.link}" target="_blank">자세히 보기</a>
+            `;
+            resultsDiv.appendChild(bookDiv);
+        });
+    }
+    
+</script>
+
+</html>
