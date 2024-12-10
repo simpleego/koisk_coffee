@@ -15,8 +15,7 @@
 <script>
     async function searchBooks() {
         const title = document.getElementById('bookTitle').value;
-        const apiKey = 'ttbsimpleego1150001'; // 여기에 발급받은 TTBKey를 입력하세요
-        const url = `http://www.aladin.co.kr/ttb/api/ItemSearch.aspx?ttbkey=${apiKey}&Query=${title}&QueryType=Title&MaxResults=10&start=1&SearchTarget=Book&output=js&Version=20131101`;
+        const url = `/api?ttbkey=YOUR_TTB_KEY&Query=${title}&QueryType=Title&MaxResults=10&start=1&SearchTarget=Book&output=js&Version=20131101`;
     
         try {
             const response = await fetch(url);
