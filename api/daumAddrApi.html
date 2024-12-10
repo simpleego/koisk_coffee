@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script>
+window.onload = function(){
+    document.getElementById("address_kakao").addEventListener("click", function(){ 
+        
+        new daum.Postcode({
+            oncomplete: function(data) { 
+                document.getElementById("address_kakao").value = data.address; 
+                document.querySelector("input[name=address_detail]").focus(); 
+            }
+        }).open();
+    });
+}
+</script>
+<body>
+<form action="register_form.php" method="post">
+    <table border="1" align="center" width="800" cellpadding="7"">
+        <tr>
+            <th>아이디</th>
+            <td><input type="text" name="id"></td>
+        </tr>
+        <tr>
+            <th>비밀번호</th>
+            <td><input type="password" name="pwd"></td>
+        </tr>
+        <tr>
+            <th>이름</th>
+            <td><input type="text" name="name"></td>
+        </tr>
+        <tr>
+            <th>이메일</th>
+            <td><input type="text" size="30" name="email"></td>
+        </tr>
+        <tr>
+            <th>주소</th>
+            
+            <td><input type="text" size="80" name="address" id="address_kakao" readonly></td>
+        </tr>
+        <tr>
+            <th>상세주소</th>
+            <td><input type="text" size="80" name="address_detail"></td>
+        </tr>
+        <tr>
+                <td colspan="2" style="text-align:center;">
+                    <button type="submit">가입하기</button>
+                    
+                    <button type="button" onclick="javascript:location.href='./index.php';">취소</button>
+                </td>
+        </tr>
+    </table>
+    <div style="text-align:center; padding-top:10px;">
+    </div>
+</form>
+</body>
+</html>
